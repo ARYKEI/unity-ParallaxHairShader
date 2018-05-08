@@ -9,33 +9,47 @@
         Tags { "RenderType" = "Opaque" "Queue" = "Geometry+1"}
         Blend DstColor Zero
 
-		CGPROGRAM
-		#pragma surface surf Standard finalcolor:colormod
-		#pragma target 3.0
-
-		
-		struct Input {
-			float2 uv_MainTex;
-        };
-
-		fixed4 _Color;
-        sampler2D _MainTex;
-        float _Mip;
-
-		void colormod(Input IN, SurfaceOutputStandard o, inout fixed4 color)
-		{
-            float4 hair = tex2Dlod(_MainTex, float4(IN.uv_MainTex.xy,0,_Mip));
-			color = lerp(float4(1, 1, 1, 1), _Color,saturate(hair.r+hair.g+hair.b+hair.a));
-		}
-		
-		void surf (Input IN, inout SurfaceOutputStandard o)
+        Pass
         {
-            o.Albedo = 0;
-			o.Emission = 0;
-			o.Smoothness = 0;
-			o.Alpha = 0;
-		}
-		ENDCG
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            
+            #include "UnityCG.cginc"
 
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+            };
+
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+			float _Mip;
+            float4 _Color;
+
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                return o;
+            }
+            
+            fixed4 frag (v2f i) : SV_Target
+            {
+				float4 col = float4(1,1,1,1);
+				float4 hair = tex2Dlod(_MainTex, float4(i.uv,0,_Mip));
+				col = lerp(col, _Color,saturate(hair.r+hair.g+hair.b+hair.a));
+                return col;
+            }
+            ENDCG
+        }
     }
 }

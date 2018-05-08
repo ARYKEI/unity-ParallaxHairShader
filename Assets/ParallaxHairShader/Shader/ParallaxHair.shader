@@ -33,7 +33,6 @@
 		fixed4 _Color;
 		fixed4 _ColorDark;
 		float _LayerHeight;
-		sampler2D AfterLighting;
 
 		void surf (Input IN, inout SurfaceOutputStandard o)
         {

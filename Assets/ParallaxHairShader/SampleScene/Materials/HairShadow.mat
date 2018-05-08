@@ -64,7 +64,7 @@ Material:
     - _GlossyReflections: 1
     - _LayerHeight: 0.0161
     - _Metallic: 0
-    - _Mip: 3.88
+    - _Mip: 3.75
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -75,6 +75,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.9056795, b: 0.8897059, a: 1}
+    - _Color: {r: 0.9411765, g: 0.8701587, b: 0.85813147, a: 1}
     - _ColorDark: {r: 0.102941155, g: 0.019679926, b: 0.019679926, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
